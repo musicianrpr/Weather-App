@@ -1,19 +1,64 @@
 const request = require('request')
 const apiResponse = require('./utils/openWeatherMap')
+const yargs = require('yargs')
+const req = require('./utils/requestAsker')
 
-const address = 'California'
 
-const url = 'http://api.openweathermap.org/data/2.5/weather?q=' + encodeURIComponent(address) + '&appid=ddd4a84337f2edeb21fcd0c147348ae1'
-
-apiResponse.apiResponse(url, (error, response) => {
-  if (error) {
-    console.log('Unable to reach the weather services!')
-    return
-  }
-  if (response.cod === '404') {
-    console.log('Type a valid city!')
-  } else {
-    const kelvinToCelsius = (temp) => temp - 270
-    console.log(`It's ${kelvinToCelsius(response.main.temp).toFixed(1)}°C`)
+yargs.command({
+  command: 'temp',
+  describe: 'Gets city temperature',
+  builder: {
+    city: {
+      demandOption: true,
+      type: 'string'
+    }
+  },
+  handler(argv) {
+    req.getWeather(argv.city, 'temp')
   }
 })
+
+yargs.command({
+  command: 'humidity',
+  describe: 'Gets city humidity',
+  builder: {
+    city: {
+      demandOption: true,
+      type: 'string'
+    }
+  },
+  handler(argv) {
+    req.getWeather(argv.city, 'humidity')
+  }
+})
+
+yargs.command({
+  command: 'windSpeed',
+  describe: 'Gets city wind speed',
+  builder: {
+    city: {
+      demandOption: true,
+      type: 'string'
+    }
+  },
+  handler(argv) {
+    req.getWeather(argv.city, 'windSpeed')
+  }
+})
+
+yargs.command({
+  command: 'weather',
+  describe: 'Gets city weather',
+  builder: {
+    city: {
+      demandOption: true,
+      type: 'string'
+    }
+  },
+  handler(argv) {
+    req.getWeather(argv.city, 'weather')
+  }
+})
+
+
+yargs.parse()
