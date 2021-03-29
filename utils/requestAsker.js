@@ -5,7 +5,7 @@ const sender = apiResponse.getAPIResponse
 const getURL = (address) => 'http://api.openweathermap.org/data/2.5/weather?q=' + encodeURIComponent(address) + `&appid=${process.env.WEATHER_API_KEY}`
 
 const getWeather = (address, info) => {
-  sender(getURL(address), (error, response) => {
+  sender(getURL(address), (response) => {
     if (info === 'temp') {
 
       const temperatureInCelsius = response.main.temp - 270

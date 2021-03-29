@@ -1,5 +1,3 @@
-const request = require('request')
-const apiResponse = require('./utils/openWeatherMap')
 const yargs = require('yargs')
 const req = require('./utils/requestAsker')
 
