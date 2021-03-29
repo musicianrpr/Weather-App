@@ -2,7 +2,7 @@ const apiResponse = require('./openWeatherMap')
 
 const sender = apiResponse.getAPIResponse
 
-const getURL = (address) => 'http://api.openweathermap.org/data/2.5/weather?q=' + encodeURIComponent(address) + '&appid=ddd4a84337f2edeb21fcd0c147348ae1'
+const getURL = (address) => `http://api.openweathermap.org/data/2.5/weather?q=' + encodeURIComponent(address) + '&appid=${process.env.WEATHER_API_KEY}`
 
 const getWeather = (address, info) => {
   sender(getURL(address), (error, response) => {
